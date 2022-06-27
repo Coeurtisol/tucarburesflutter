@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MainPage(title: 'TMDB api consumer'),
+      home: const MainPage(title: 'TuCarbures'),
       debugShowCheckedModeBanner: false,
     );
   }

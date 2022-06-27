@@ -1,4 +1,4 @@
-import '../model/GasStation.dart';
+import '../model/gas_station.dart';
 import '../model/gasoline.dart';
 
 const fakeGasStation = [
@@ -71,7 +71,7 @@ const fakeGasStation = [
             gasStationId: "",
             name: "Sans Plomb 95 (E10)",
             code: "067-502",
-            price: "2,009"),
+            price: "2,066"),
         Gasoline(
             id: "4",
             gasStationId: "",

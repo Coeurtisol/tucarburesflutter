@@ -1,5 +1,3 @@
-
-
 class Gasoline {
   final String id;
   final String gasStationId;

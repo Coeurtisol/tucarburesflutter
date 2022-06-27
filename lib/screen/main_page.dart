@@ -28,13 +28,13 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Center(child: Text(widget.title),),
       ),
       body: _widgets[_index],
       bottomNavigationBar: BottomNavigationBar(
         onTap: _changePage,
         currentIndex: _index,
-        items: [
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.star_border_outlined), label: 'Ma station'),
           BottomNavigationBarItem(icon: Icon(Icons.search_outlined), label: 'Rechercher'),
         ],

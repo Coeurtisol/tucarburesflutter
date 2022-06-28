@@ -13,7 +13,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   final List<Widget> _widgets = [
     const FavorisPage(),
-    const RecherchePage(),
+     RecherchePage(),
   ];
 
   int _index = 0;

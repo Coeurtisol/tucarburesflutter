@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:tucarburesflutter/data/gas_station_data.dart';
 import 'package:tucarburesflutter/fakedata/fakedata_gasstation.dart';
 import 'package:tucarburesflutter/model/gas_station.dart';
+import 'package:maps_launcher/maps_launcher.dart';
+import 'dart:math' as Math;
+import 'package:geolocator/geolocator.dart';
 
 class FavorisPage extends StatefulWidget {
   const FavorisPage({Key? key}) : super(key: key);
@@ -27,6 +30,8 @@ class _FavorisPageState extends State<FavorisPage> {
                 children: [
                   Text(gasStation.brand),
                   Text(gasStation.name),
+                  Text("(à X km)"),
+                  // Text("(à ${gasStation.distance} km)"),
                 ],
               ),
               SizedBox(width: 20),
@@ -34,7 +39,12 @@ class _FavorisPageState extends State<FavorisPage> {
                 Text(gasStation.lane),
                 Text(gasStation.zipCode),
                 Text(gasStation.city),
-                Icon(Icons.map)
+                ElevatedButton.icon(
+                    onPressed: () => MapsLauncher.launchCoordinates(
+                        double.parse(gasStation.latitude),
+                        double.parse(gasStation.longitude)),
+                    icon: Icon(Icons.location_on),
+                    label: Text("Ouvrir avec Maps"))
               ])
             ],
           ),
@@ -47,7 +57,10 @@ class _FavorisPageState extends State<FavorisPage> {
                   SizedBox(width: 10),
                   Text(gasoline.price,
                       style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text(" €")
+                  Text(" €"),
+                  SizedBox(width: 10),
+                  //
+                  Text("il y a X s|m|h|j"),
                 ],
               )
           ])

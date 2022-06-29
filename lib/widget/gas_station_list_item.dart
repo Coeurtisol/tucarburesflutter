@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import 'package:tucarburesflutter/model/gas_station.dart';
 
-class GasStationWidget extends StatelessWidget {
-  const GasStationWidget({Key? key, required this.gasStation})
+class GasStationRechercheItemWidget extends StatelessWidget {
+  const GasStationRechercheItemWidget({Key? key, required this.gasStation})
       : super(key: key);
 
   final GasStation gasStation;

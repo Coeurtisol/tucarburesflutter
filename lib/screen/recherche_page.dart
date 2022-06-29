@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:tucarburesflutter/data/gas_station_data.dart';
 
 class RecherchePage extends StatefulWidget {
   @override
@@ -22,6 +23,7 @@ class _RecherchePageState extends State<RecherchePage> {
   void initState() {
     super.initState();
     _getCurrentLocation();
+    // GasStationsData().$getGasStations();
   }
 
   @override

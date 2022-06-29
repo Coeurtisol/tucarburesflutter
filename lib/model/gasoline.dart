@@ -1,15 +1,26 @@
-class Gasoline {
-  final String id;
-  final String gasStationId;
-  final String name;
-  final String code;
-  final String price;
+List<Gasoline> GasolinesFromJson(dynamic str) =>
+    List<Gasoline>.from((str).map((x) => Gasoline.fromJson(x)));
 
-  const Gasoline({
-    required this.id,
-    required this.gasStationId,
+class Gasoline {
+  late String name;
+  late String code;
+
+  Gasoline({
     required this.name,
     required this.code,
-    required this.price,
   });
+
+  Gasoline.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    code = json['code'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final json = <String, dynamic>{};
+
+    json["name"] = name;
+    json["code"] = code;
+
+    return json;
+  }
 }

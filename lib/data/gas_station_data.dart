@@ -4,35 +4,30 @@ import 'package:tucarburesflutter/fakedata/fakedata_gasstation.dart';
 import 'package:tucarburesflutter/model/gas_station.dart';
 
 class GasStationsData {
-  final String authToken = "ac415c926075ad3b5cd2048059e17352";
+  final String uri_domain = "10.0.2.2:8080";
+  final String uri_gas_stations = "gas-stations";
 
-  // Future<Map<String, dynamic>> getGasStations(
-  //     int maxDistance, double maxPrice) async {
-  //   var uri = Uri.https("api.themoviedb.org", "3/movie/popular",
-  //       {"api_key": authToken, "language": "fr-FR"});
-  //   var response = await http.get(uri);
-  //   Map<String, dynamic> jsonResponse =
-  //       jsonDecode(response.body) as Map<String, dynamic>;
-  //   return jsonResponse;
-  // }
-
-  List<GasStation> getGasStations(int maxDistance, double maxPrice) {
-    return fakeGasStation;
+  Future<List<GasStation>> $getGasStations() async {
+    var url = Uri.http(uri_domain, uri_gas_stations);
+    var response = await http.get(url);
+    var jsonResponse = jsonDecode(response.body);
+    return GasStationsFromJson(jsonResponse); jsonResponse;
   }
 
-  GasStation findGasStation(String uuid) {
-    var gasStation = fakeGasStation.firstWhere((e) => e.id == uuid);
-    return gasStation;
+  Future<Map<String, dynamic>> findGasStation(String uuid) async {
+    var url = Uri.http(uri_domain, uri_gas_stations + '/' + uuid);
+    var response = await http.get(url);
+    var jsonResponse = jsonDecode(response.body);
+    return jsonResponse as Map<String, dynamic>;
   }
-
-  // Future<GasStation> $getGasStations(
-  //   GasStation gasStation
-  //     int maxDistance, double maxPrice) async {
-  //   var uri = Uri.https("api.themoviedb.org", "3/movie/popular",
-  //       {"api_key": authToken, "language": "fr-FR"});
-  //   var response = await http.get(uri);
-  //   Map<String, dynamic> jsonResponse =
-  //       jsonDecode(response.body) as Map<String, dynamic>;
-  //   return ;
+  Future<GasStation> $findGasStation(String uuid) async {
+    var url = Uri.http(uri_domain, uri_gas_stations + '/' + uuid);
+    var response = await http.get(url);
+    var jsonResponse = jsonDecode(response.body);
+    return GasStation.fromJson(jsonResponse);
+  }
+  // GasStation $findGasStation(String uuid) {
+  //   var gasStation = fakeGasStation.firstWhere((e) => e.id == uuid);
+  //   return gasStation;
   // }
 }

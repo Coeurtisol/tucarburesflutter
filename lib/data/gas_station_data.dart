@@ -1,8 +1,8 @@
 // ignore_for_file: non_constant_identifier_names, avoid_print
 
+import 'dart:async';
 import 'dart:convert';
 import "package:http/http.dart" as http;
-import 'package:tucarburesflutter/fakedata/fakedata_gasstation.dart';
 import 'package:tucarburesflutter/model/gas_station.dart';
 
 class GasStationsData {
@@ -13,10 +13,10 @@ class GasStationsData {
       String phonePostion, String maxDistance) async {
     var url = Uri.http(uri_domain, uri_gas_stations,
         {"phonePositon": phonePostion, "maxDistance": maxDistance});
-    print(url);
+    // print(url);
     var response = await http.get(url);
     var jsonResponse = jsonDecode(response.body);
-    print(jsonResponse);
+    // print(jsonResponse);
     return GasStationsFromJson(jsonResponse);
   }
 

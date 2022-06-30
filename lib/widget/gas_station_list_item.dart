@@ -4,10 +4,12 @@ import 'package:tucarburesflutter/screen/gas_station_page.dart';
 import 'package:tucarburesflutter/util/date_util.dart';
 
 class GasStationRechercheItemWidget extends StatelessWidget {
-  const GasStationRechercheItemWidget({Key? key, required this.gasStation})
+  const GasStationRechercheItemWidget(
+      {Key? key, required this.gasStation, required this.gasolineFilter})
       : super(key: key);
 
   final GasStation gasStation;
+  final String gasolineFilter;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,10 @@ class GasStationRechercheItemWidget extends StatelessWidget {
               Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
-                    for (var statement in gasStation.statementList)
+                    for (var statement in gasStation.statementList.where(
+                        (statement) =>
+                            gasolineFilter != "" &&
+                            statement.gasoline.name == gasolineFilter))
                       Column(
                         children: [
                           Row(
@@ -41,7 +46,7 @@ class GasStationRechercheItemWidget extends StatelessWidget {
                               const SizedBox(width: 10),
                               Text(statement.gasoline.name),
                               const SizedBox(width: 5),
-                              Text("(${statement.gasoline.code} :)"),
+                              Text("(${statement.gasoline.code}) :"),
                               const SizedBox(width: 5),
                               Text(statement.price.toString(),
                                   style: const TextStyle(

@@ -10,13 +10,23 @@ class GasStationsData {
   final String uri_gas_stations = "gas-stations";
 
   Future<List<GasStation>> $getGasStations(
-      String phonePostion, String maxDistance) async {
-    var url = Uri.http(uri_domain, uri_gas_stations,
-        {"phonePosition": phonePostion, "maxDistance": maxDistance});
+      String phonePostion, String maxDistance, String? gasoline) async {
+    var url = Uri.http(uri_domain, uri_gas_stations, {
+      "phonePosition": phonePostion,
+      "maxDistance": maxDistance,
+      // "gasName": gasoline
+    });
+    print("POSITION");
+    print(phonePostion);
+    print("DISTANCE");
+    print(maxDistance);
+    print("GASOLINE");
+    print(gasoline);
+    print("URL");
     print(url);
     var response = await http.get(url);
     var jsonResponse = jsonDecode(response.body);
-    print(jsonResponse);
+    // print(jsonResponse);
     return GasStationsFromJson(jsonResponse);
   }
 

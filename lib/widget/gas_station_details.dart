@@ -23,17 +23,20 @@ class _GasStationDetailsState extends State<GasStationDetails> {
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Column(
-                children: [
-                  Text(gasStation.brand),
-                  Text(gasStation.name),
-                  Text("(à ${gasStation.distance?.toStringAsFixed(2)} km)"),
-                ],
+              Flexible(
+                child: Column(
+                  children: [
+                    Text(gasStation.brand),
+                    Text(gasStation.name),
+                    Text("(à ${gasStation.distance?.toStringAsFixed(2)} km)"),
+                  ],
+                ),
               ),
-              SizedBox(width: 20),
-              Column(children: [
+              // SizedBox(width: 20),
+              Flexible(
+                  child: Column(children: [
                 Text(gasStation.lane),
                 Text(gasStation.zipCode),
                 Text(gasStation.city),
@@ -42,7 +45,7 @@ class _GasStationDetailsState extends State<GasStationDetails> {
                         gasStation.latitude, gasStation.longitude),
                     icon: Icon(Icons.location_on),
                     label: Text("Ouvrir avec Maps"))
-              ])
+              ]))
             ],
           ),
           Column(crossAxisAlignment: CrossAxisAlignment.end, children: <Widget>[

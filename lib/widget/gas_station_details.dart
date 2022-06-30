@@ -29,7 +29,7 @@ class _GasStationDetailsState extends State<GasStationDetails> {
                 children: [
                   Text(gasStation.brand),
                   Text(gasStation.name),
-                  Text("(à X km)"),
+                  Text("(à ${gasStation.distance?.toStringAsFixed(2)} km)"),
                 ],
               ),
               SizedBox(width: 20),

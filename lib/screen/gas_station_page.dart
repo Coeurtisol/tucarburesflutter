@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:tucarburesflutter/data/gas_station_data.dart';
 import 'package:tucarburesflutter/model/gas_station.dart';
+import 'package:tucarburesflutter/util/position_util.dart';
+import 'package:tucarburesflutter/widget/circular_progress_indicator_custom.dart';
 import 'package:tucarburesflutter/widget/gas_station_details.dart';
 
 class GasStationPage extends StatefulWidget {
@@ -17,7 +19,8 @@ class GasStationPage extends StatefulWidget {
 class GasStationPageState extends State<GasStationPage> {
   var uuid;
   Future<GasStation> getGasStation() async {
-    return await GasStationsData().$findGasStation(uuid);
+    return await GasStationsData()
+        .$findGasStation(uuid, await PositionUtil().getStringPosition());
   }
 
   @override
@@ -36,15 +39,8 @@ class GasStationPageState extends State<GasStationPage> {
                 final gasStation = snapshot.data as GasStation;
                 return GasStationDetails(gasStation: gasStation);
               } else {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Chargement des informations de la station'),
-                      CircularProgressIndicator()
-                    ],
-                  ),
-                );
+                return const CilcularProgressIndicationCustom(
+                    text: "Chargement de la station");
               }
             },
             future: getGasStation()));

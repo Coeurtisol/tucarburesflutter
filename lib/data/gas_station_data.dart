@@ -12,11 +12,11 @@ class GasStationsData {
   Future<List<GasStation>> $getGasStations(
       String phonePostion, String maxDistance) async {
     var url = Uri.http(uri_domain, uri_gas_stations,
-        {"phonePositon": phonePostion, "maxDistance": maxDistance});
-    // print(url);
+        {"phonePosition": phonePostion, "maxDistance": maxDistance});
+    print(url);
     var response = await http.get(url);
     var jsonResponse = jsonDecode(response.body);
-    // print(jsonResponse);
+    print(jsonResponse);
     return GasStationsFromJson(jsonResponse);
   }
 
@@ -27,10 +27,13 @@ class GasStationsData {
     return jsonResponse as Map<String, dynamic>;
   }
 
-  Future<GasStation> $findGasStation(String uuid) async {
-    var url = Uri.http(uri_domain, '$uri_gas_stations/$uuid');
+  Future<GasStation> $findGasStation(String uuid, String phonePosition) async {
+    var url = Uri.http(uri_domain, '$uri_gas_stations/$uuid',
+        {"phonePosition": phonePosition});
+    print(url);
     var response = await http.get(url);
     var jsonResponse = jsonDecode(response.body);
+    print(jsonResponse);
     return GasStation.fromJson(jsonResponse);
   }
   // GasStation $findGasStation(String uuid) {

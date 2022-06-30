@@ -19,51 +19,60 @@ class _GasStationDetailsState extends State<GasStationDetails> {
   @override
   Widget build(BuildContext context) {
     final gasStation = widget.gasStation;
-    return Center(
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
+      children: [
+        Image(
+          image: AssetImage("assets/images/tucarbure.png"),
+        ),
+        Center(
+          child: Column(
             children: [
-              Column(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(gasStation.brand),
-                  Text(gasStation.name),
-                  Text("(à ${gasStation.distance?.toStringAsFixed(2)} km)"),
+                  Column(
+                    children: [
+                      Text(gasStation.brand),
+                      Text(gasStation.name),
+                      Text("(à ${gasStation.distance?.toStringAsFixed(2)} km)"),
+                    ],
+                  ),
+                  SizedBox(width: 20),
+                  Column(children: [
+                    Text(gasStation.lane),
+                    Text(gasStation.zipCode),
+                    Text(gasStation.city),
+                    ElevatedButton.icon(
+                        onPressed: () => MapsLauncher.launchCoordinates(
+                            gasStation.latitude, gasStation.longitude),
+                        icon: Icon(Icons.location_on),
+                        label: Text("Ouvrir avec Maps"))
+                  ])
                 ],
               ),
-              SizedBox(width: 20),
-              Column(children: [
-                Text(gasStation.lane),
-                Text(gasStation.zipCode),
-                Text(gasStation.city),
-                ElevatedButton.icon(
-                    onPressed: () => MapsLauncher.launchCoordinates(
-                        gasStation.latitude, gasStation.longitude),
-                    icon: Icon(Icons.location_on),
-                    label: Text("Ouvrir avec Maps"))
-              ])
+              Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    for (var statement in gasStation.statementList)
+                      Row(
+                        children: [
+                          Text(statement.gasoline.name),
+                          SizedBox(width: 5),
+                          Text("(${statement.gasoline.code}) :"),
+                          SizedBox(width: 5),
+                          Text(statement.price.toString(),
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          Text(" €"),
+                          SizedBox(width: 10),
+                          //
+                          Text(DateUtil().convertDate(statement.localDate)),
+                        ],
+                      )
+                  ])
             ],
           ),
-          Column(crossAxisAlignment: CrossAxisAlignment.end, children: <Widget>[
-            for (var statement in gasStation.statementList)
-              Row(
-                children: [
-                  Text(statement.gasoline.name),
-                  SizedBox(width: 5),
-                  Text("(${statement.gasoline.code}) :"),
-                  SizedBox(width: 5),
-                  Text(statement.price.toString(),
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text(" €"),
-                  SizedBox(width: 10),
-                  //
-                  Text(DateUtil().convertDate(statement.localDate)),
-                ],
-              )
-          ])
-        ],
-      ),
+        )
+      ],
     );
   }
 }

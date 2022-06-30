@@ -16,8 +16,8 @@ class FavorisPage extends StatefulWidget {
 
 class _FavorisPageState extends State<FavorisPage> {
   Future<GasStation> getGasStation() async {
-    return await GasStationsData().$findGasStation(
-        "62bbfab18ba8ee41cdcca422", await PositionUtil().getStringPosition());
+    return await GasStationsData()
+        .$getMyGasStation(await PositionUtil().getStringPosition());
   }
 
   @override

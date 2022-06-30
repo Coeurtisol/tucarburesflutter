@@ -3,11 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:tucarburesflutter/model/gas_station.dart';
+import 'package:tucarburesflutter/util/date_util.dart';
 
 class GasStationDetails extends StatefulWidget {
   const GasStationDetails({Key? key, required this.gasStation})
       : super(key: key);
-      
+
   final GasStation gasStation;
 
   @override
@@ -45,17 +46,19 @@ class _GasStationDetailsState extends State<GasStationDetails> {
             ],
           ),
           Column(crossAxisAlignment: CrossAxisAlignment.end, children: <Widget>[
-            for (var gasoline in gasStation.gasolineList)
+            for (var statement in gasStation.statementList)
               Row(
                 children: [
-                  Text(gasoline.name),
+                  Text(statement.gasoline.name),
                   SizedBox(width: 5),
-                  Text("(${gasoline.code})"),
-                  Text(" 2.319", style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text("(${statement.gasoline.code}) :"),
+                  SizedBox(width: 5),
+                  Text(statement.price.toString(),
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                   Text(" €"),
                   SizedBox(width: 10),
                   //
-                  Text("il y a X s|m|h|j"),
+                  Text(DateUtil().convertDate(statement.localDate)),
                 ],
               )
           ])

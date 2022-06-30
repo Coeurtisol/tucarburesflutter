@@ -1,3 +1,5 @@
+import 'package:tucarburesflutter/model/statement.dart';
+
 import 'gasoline.dart';
 
 List<GasStation> GasStationsFromJson(dynamic str) =>
@@ -8,6 +10,7 @@ class GasStation {
   late String brand;
   late String name;
   late List<Gasoline> gasolineList;
+  late List<Statement> statementList;
   late String lane;
   late String zipCode;
   late String city;
@@ -19,6 +22,7 @@ class GasStation {
     required this.brand,
     required this.name,
     required this.gasolineList,
+    required this.statementList,
     required this.lane,
     required this.zipCode,
     required this.city,
@@ -31,6 +35,7 @@ class GasStation {
     brand = json['brand'];
     name = json['name'];
     gasolineList = GasolinesFromJson(json['gasolineList']);
+    statementList = StatementsFromJson(json['statementList']);
     lane = json['lane'];
     zipCode = json['zipCode'];
     city = json['city'];
@@ -45,6 +50,7 @@ class GasStation {
     json["brand"] = brand;
     json["name"] = name;
     json["gasolineList"] = gasolineList;
+    json["statementList"] = statementList;
     json["lane"] = lane;
     json["zipCode"] = zipCode;
     json["city"] = city;

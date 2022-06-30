@@ -1,6 +1,9 @@
 List<Gasoline> GasolinesFromJson(dynamic str) =>
     List<Gasoline>.from((str).map((x) => Gasoline.fromJson(x)));
 
+List<Map<String, dynamic>> JsonFromGasolines(List<Gasoline> gasoline) =>
+    List<Map<String, dynamic>>.from((gasoline).map((x) => x.toJson()));
+
 class Gasoline {
   late String name;
   late String code;

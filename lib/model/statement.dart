@@ -3,12 +3,15 @@ import 'package:tucarburesflutter/model/gasoline.dart';
 List<Statement> StatementsFromJson(dynamic str) =>
     List<Statement>.from((str).map((x) => Statement.fromJson(x)));
 
+List<Map<String, dynamic>> JsonFromStatements(List<Statement> statement) =>
+    List<Map<String, dynamic>>.from((statement).map((x) => x.toJson()));
+
 class Statement {
-    late String id;
-    late String gasStationId;
-    late Gasoline gasoline;
-    late String localDate;
-    late double price;
+  late String id;
+  late String gasStationId;
+  late Gasoline gasoline;
+  late String localDate;
+  late double price;
 
   Statement({
     required this.id,
@@ -31,7 +34,7 @@ class Statement {
 
     json["id"] = id;
     json["gasStationId"] = gasStationId;
-    json["gasoline"] = gasoline;
+    json["gasoline"] = gasoline.toJson();
     json["localDate"] = localDate;
     json["price"] = price;
 

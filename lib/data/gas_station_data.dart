@@ -51,6 +51,8 @@ class GasStationsData {
   //   return gasStation;
   // }
 
+  
+
   Future<GasStation> $getMyGasStation(String phonePosition) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString("favoriGasStationUuid", "62bc803329c1957f122ce989");

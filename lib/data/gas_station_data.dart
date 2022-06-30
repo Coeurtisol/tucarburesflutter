@@ -14,7 +14,7 @@ class GasStationsData {
     var url = Uri.http(uri_domain, uri_gas_stations, {
       "phonePosition": phonePostion,
       "maxDistance": maxDistance,
-      // "gasName": gasoline
+      "gasName": gasoline
     });
     print("POSITION");
     print(phonePostion);

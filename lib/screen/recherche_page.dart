@@ -68,7 +68,6 @@ class _RecherchePageState extends State<RecherchePage> {
             final gasStations = snapshot.data as List<GasStation>;
             return Column(
               children: [
-                // ignore: prefer_const_constructors
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                   child: TextField(
@@ -92,7 +91,8 @@ class _RecherchePageState extends State<RecherchePage> {
                           child: Text(gasoline),
                         ))
                 ]),
-                ListView.builder(
+                Expanded(
+                    child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: gasStations.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -101,7 +101,7 @@ class _RecherchePageState extends State<RecherchePage> {
                       gasolineFilter: _gasoline,
                     );
                   },
-                )
+                ))
               ],
             );
           } else {

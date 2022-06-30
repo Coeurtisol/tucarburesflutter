@@ -52,8 +52,8 @@ class GasStation {
     json["id"] = id;
     json["brand"] = brand;
     json["name"] = name;
-    json["gasolineList"] = gasolineList;
-    json["statementList"] = statementList;
+    json["gasolineList"] = JsonFromGasolines(gasolineList);
+    json["statementList"] = JsonFromStatements(statementList);
     json["lane"] = lane;
     json["zipCode"] = zipCode;
     json["city"] = city;

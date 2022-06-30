@@ -16,6 +16,7 @@ class GasStation {
   late String city;
   late double latitude;
   late double longitude;
+  late double? distance;
 
   GasStation({
     required this.id,
@@ -28,6 +29,7 @@ class GasStation {
     required this.city,
     required this.latitude,
     required this.longitude,
+    this.distance,
   });
 
   GasStation.fromJson(Map<String, dynamic> json) {
@@ -41,6 +43,7 @@ class GasStation {
     city = json['city'];
     latitude = json['latitude'];
     longitude = json['longitude'];
+    distance = json['distance'];
   }
 
   Map<String, dynamic> toJson() {
@@ -56,6 +59,7 @@ class GasStation {
     json["city"] = city;
     json["latitude"] = latitude;
     json["longitude"] = longitude;
+    json["distance"] = distance;
 
     return json;
   }

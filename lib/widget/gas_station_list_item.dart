@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:tucarburesflutter/model/gas_station.dart';
 import 'package:tucarburesflutter/screen/gas_station_page.dart';
+import 'package:tucarburesflutter/util/date_util.dart';
 
 class GasStationRechercheItemWidget extends StatelessWidget {
   const GasStationRechercheItemWidget({Key? key, required this.gasStation})
@@ -23,23 +24,31 @@ class GasStationRechercheItemWidget extends StatelessWidget {
               Row(
                 children: [
                   Text(gasStation.name),
-                  const Text("(à X km)"),
+                  const SizedBox(width: 10),
+                  Text("(à ${gasStation.distance?.toStringAsFixed(2)} km)"),
                 ],
               ),
               Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
-                    for (var gasoline in gasStation.gasolineList)
-                      Row(
+                    for (var statement in gasStation.statementList)
+                      Column(
                         children: [
-                          Text(gasoline.name),
-                          const SizedBox(width: 5),
-                          Text("(${gasoline.code})"),
-                          const Text(" 2.319",
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                          const Text(" €"),
-                          const SizedBox(width: 10),
-                          const Text("il y a X s|m|h|j"),
+                          Row(
+                            children: [
+                              Text(DateUtil()
+                                  .convertDate(statement.localDate.toString())),
+                              const SizedBox(width: 10),
+                              Text(statement.gasoline.name),
+                              const SizedBox(width: 5),
+                              Text("(${statement.gasoline.code} :)"),
+                              const SizedBox(width: 5),
+                              Text(statement.price.toString(),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold)),
+                              const Text(" €"),
+                            ],
+                          ),
                         ],
                       )
                   ])

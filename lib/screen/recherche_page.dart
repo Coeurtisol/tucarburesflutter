@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:tucarburesflutter/data/gas_station_data.dart';
 import 'package:tucarburesflutter/model/gas_station.dart';
+import 'package:tucarburesflutter/util/position_util.dart';
+import 'package:tucarburesflutter/widget/circular_progress_indicator_custom.dart';
 import 'package:tucarburesflutter/widget/gas_station_list_item.dart';
 
 class RecherchePage extends StatefulWidget {
@@ -22,15 +24,15 @@ class _RecherchePageState extends State<RecherchePage> {
   }
 
   Future<List<GasStation>> getGasStations() async {
-    return await GasStationsData().$getGasStations(
-        "${_currentPosition?.latitude}-${_currentPosition?.longitude}", "10");
+    String stringPosition = await PositionUtil().getStringPosition();
+    return await GasStationsData().$getGasStations(stringPosition, "10");
   }
 
   @override
   void initState() {
     super.initState();
-    _getCurrentLocation();
-    getGasStations();
+    // _getCurrentLocation();
+    // getGasStations();
   }
 
   @override
@@ -39,11 +41,7 @@ class _RecherchePageState extends State<RecherchePage> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData == true) {
-            // print(snapshot.data);
             final gasStations = snapshot.data as List<GasStation>;
-            // print(gasStation.gasolineList);
-            // final gasStation = snapshot.data as Map<String, dynamic>;
-            // final gasolineList = gasStation["gasolineList"] as List<Map<String, dynamic>>;
             return ListView.builder(
               itemBuilder: (BuildContext context, int index) {
                 return GasStationRechercheItemWidget(
@@ -52,15 +50,8 @@ class _RecherchePageState extends State<RecherchePage> {
               itemCount: gasStations.length,
             );
           } else {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text('Chargement des informations de ma station'),
-                  CircularProgressIndicator()
-                ],
-              ),
-            );
+            return const CilcularProgressIndicationCustom(
+                text: "Chargement des stations");
           }
         },
         future: getGasStations());

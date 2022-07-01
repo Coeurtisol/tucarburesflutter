@@ -23,6 +23,10 @@ class GasStationPageState extends State<GasStationPage> {
         .$findGasStation(uuid, await PositionUtil().getStringPosition());
   }
 
+  refresh() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     uuid = widget.uuid;
@@ -37,7 +41,8 @@ class GasStationPageState extends State<GasStationPage> {
               if (snapshot.connectionState == ConnectionState.done &&
                   snapshot.hasData == true) {
                 final gasStation = snapshot.data as GasStation;
-                return GasStationDetails(gasStation: gasStation);
+                return GasStationDetails(
+                    gasStation: gasStation, refresh: refresh);
               } else {
                 return const CilcularProgressIndicationCustom(
                     text: "Chargement de la station");

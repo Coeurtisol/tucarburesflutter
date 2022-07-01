@@ -20,6 +20,10 @@ class _FavorisPageState extends State<FavorisPage> {
         .$getMyGasStation(await PositionUtil().getStringPosition());
   }
 
+  refresh() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -27,7 +31,10 @@ class _FavorisPageState extends State<FavorisPage> {
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData == true) {
             final gasStation = snapshot.data as GasStation;
-            return GasStationDetails(gasStation: gasStation);
+            return GasStationDetails(
+              gasStation: gasStation,
+              refresh: refresh,
+            );
           } else {
             return const CilcularProgressIndicationCustom(
                 text: "Chargement de ma station favori");

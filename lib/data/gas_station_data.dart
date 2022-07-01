@@ -23,7 +23,7 @@ class GasStationsData {
       params = {
         "phonePosition": phonePostion,
         "maxDistance": maxDistance,
-        "gasNAme": gasoline,
+        "gasName": gasoline,
       };
     }
 

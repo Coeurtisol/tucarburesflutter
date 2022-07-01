@@ -5,6 +5,7 @@ import 'dart:convert';
 import "package:http/http.dart" as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tucarburesflutter/model/gas_station.dart';
+import 'package:tucarburesflutter/model/statement.dart';
 
 class GasStationsData {
   final String uri_domain = "10.0.2.2:8080";
@@ -27,8 +28,21 @@ class GasStationsData {
     print(url);
     var response = await http.get(url);
     var jsonResponse = jsonDecode(response.body);
-    // print(jsonResponse);
+    print(jsonResponse);
     return GasStationsFromJson(jsonResponse);
+  }
+
+  postStatement(Statement statement) async {
+    var url = Uri.http(uri_domain, "${statement.gasStationId}/add");
+    print(statement.gasStationId);
+    print(url);
+    var body = jsonEncode(statement);
+    var response = await http.post(
+      url,
+      headers: {"Content-Type": "application/json"},
+      body: body,
+    );
+    print(response.statusCode);
   }
 
   // Future<Map<String, dynamic>> findGasStation(String uuid) async {
@@ -51,14 +65,12 @@ class GasStationsData {
   //   return gasStation;
   // }
 
-  
-
   Future<GasStation> $getMyGasStation(String phonePosition) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString("favoriGasStationUuid", "62bc803329c1957f122ce989");
+    await prefs.setString("favoriGasStationUuid", "62bbfa1f8ba8ee41cdcca421");
     String? uuid = prefs.getString("favoriGasStationUuid");
     print(uuid);
     return await $findGasStation(
-        uuid ?? "62bd57e0c6278564f9802010", phonePosition);
+        uuid ?? "62bbfab18ba8ee41cdcca422", phonePosition);
   }
 }

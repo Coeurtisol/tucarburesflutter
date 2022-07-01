@@ -17,12 +17,13 @@ class _RecherchePageState extends State<RecherchePage> {
   late String _gasoline = "";
   final TextEditingController _controller = TextEditingController();
   final String defaultDistance = "50";
-  final List<String> gasolines = [
-    "Sans plomb 95",
-    "Sans plomb 98",
-    "Superéthanol",
-    "Gasoil",
-    "GPL"
+  final List<Map<String, dynamic>> gasolines = [
+    {"label": "Tous", "value": ""},
+    {"label": "Sans plomb 95", "value": "Sans plomb 95"},
+    {"label": "Sans plomb 98", "value": "Sans plomb 98"},
+    {"label": "Superéthanol", "value": "Superéthanol"},
+    {"label": "Gasoil", "value": "Gasoil"},
+    {"label": "GPL", "value": "GPL"},
   ];
 
   Future<List<GasStation>> getGasStations() async {
@@ -65,7 +66,8 @@ class _RecherchePageState extends State<RecherchePage> {
             return Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                   child: TextField(
                     controller: _controller,
                     onSubmitted: refreshByDistance,
@@ -79,12 +81,12 @@ class _RecherchePageState extends State<RecherchePage> {
                     Container(
                         margin: const EdgeInsets.fromLTRB(0, 0, 8, 0),
                         child: ElevatedButton(
-                          onPressed: () => refreshByGasoline(gasoline),
+                          onPressed: () => refreshByGasoline(gasoline["value"]),
                           style: ElevatedButton.styleFrom(
-                              primary: _gasoline == gasoline
+                              primary: _gasoline == gasoline["value"]
                                   ? Colors.green
                                   : Colors.grey),
-                          child: Text(gasoline),
+                          child: Text(gasoline["label"]),
                         ))
                 ]),
                 Expanded(

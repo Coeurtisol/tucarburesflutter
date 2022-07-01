@@ -35,8 +35,9 @@ class GasStationRechercheItemWidget extends StatelessWidget {
                   children: <Widget>[
                     for (var statement in gasStation.statementList.where(
                         (statement) =>
-                            gasolineFilter != "" &&
-                            statement.gasoline.name == gasolineFilter))
+                            (gasolineFilter != "" &&
+                                statement.gasoline.name == gasolineFilter) ||
+                            gasolineFilter == ""))
                       Column(
                         children: [
                           Row(

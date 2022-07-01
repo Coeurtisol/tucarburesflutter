@@ -20,7 +20,7 @@ class GasStationPageState extends State<GasStationPage> {
   var uuid;
   Future<GasStation> getGasStation() async {
     return await GasStationsData()
-        .$findGasStation(uuid, await PositionUtil().getStringPosition());
+        .findGasStation(uuid, await PositionUtil().getStringPosition());
   }
 
   refresh() {

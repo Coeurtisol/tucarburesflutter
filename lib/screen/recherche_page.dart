@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, duplicate_ignore
-
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:tucarburesflutter/data/gas_station_data.dart';
@@ -30,7 +28,7 @@ class _RecherchePageState extends State<RecherchePage> {
   Future<List<GasStation>> getGasStations() async {
     String stringPosition = await PositionUtil().getStringPosition();
     return await GasStationsData()
-        .$getGasStations(stringPosition, _distance.toString(), _gasoline);
+        .getGasStations(stringPosition, _distance.toString(), _gasoline);
   }
 
   void refreshByDistance(String distance) {
@@ -55,8 +53,6 @@ class _RecherchePageState extends State<RecherchePage> {
     setState(() {
       _controller.text = defaultDistance.toString();
     });
-    // _getCurrentLocation();
-    // getGasStations();
   }
 
   @override
@@ -69,7 +65,7 @@ class _RecherchePageState extends State<RecherchePage> {
             return Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                   child: TextField(
                     controller: _controller,
                     onSubmitted: refreshByDistance,

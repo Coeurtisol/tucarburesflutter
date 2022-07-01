@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:maps_launcher/maps_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tucarburesflutter/data/gas_station_data.dart';
 import 'package:tucarburesflutter/model/gas_station.dart';
 import 'package:tucarburesflutter/model/statement.dart';
@@ -29,12 +30,22 @@ class _GasStationDetailsState extends State<GasStationDetails> {
     widget.refresh();
   }
 
+  void setFavoriGasStationId(String gasStationId) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString("favoriGasStationId", gasStationId);
+    widget.refresh();
+  }
+
   @override
   Widget build(BuildContext context) {
     final gasStation = widget.gasStation;
     return Center(
       child: Column(
         children: [
+          ElevatedButton.icon(
+              onPressed: () => setFavoriGasStationId(gasStation.id),
+              icon: const Icon(Icons.favorite_border_outlined),
+              label: const Text("Définir comme favori")),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -61,13 +72,16 @@ class _GasStationDetailsState extends State<GasStationDetails> {
               ]))
             ],
           ),
-          Column(crossAxisAlignment: CrossAxisAlignment.end, children: <Widget>[
-            for (var statement in gasStation.statementList)
-              StatementListItem(
-                  gasStation: gasStation,
-                  statement: statement,
-                  updateStatementPrice: updateStatementPrice)
-          ]),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              for (var statement in gasStation.statementList)
+                StatementListItem(
+                    gasStation: gasStation,
+                    statement: statement,
+                    updateStatementPrice: updateStatementPrice)
+            ],
+          ),
         ],
       ),
     );

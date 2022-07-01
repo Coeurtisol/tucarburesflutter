@@ -11,13 +11,23 @@ class GasStationsData {
   final String uri_domain = "10.0.2.2:8080";
   final String uri_gas_stations = "gas-stations";
 
-  Future<List<GasStation>> $getGasStations(
+  Future<List<GasStation>> getGasStations(
       String phonePostion, String maxDistance, String? gasoline) async {
-    var url = Uri.http(uri_domain, uri_gas_stations, {
-      "phonePosition": phonePostion,
-      "maxDistance": maxDistance,
-      "gasName": gasoline
-    });
+    Map<String, dynamic> params;
+    if (gasoline == "") {
+      params = {
+        "phonePosition": phonePostion,
+        "maxDistance": maxDistance,
+      };
+    } else {
+      params = {
+        "phonePosition": phonePostion,
+        "maxDistance": maxDistance,
+        "gasNAme": gasoline,
+      };
+    }
+
+    var url = Uri.http(uri_domain, uri_gas_stations, params);
     print("POSITION");
     print(phonePostion);
     print("DISTANCE");
@@ -51,7 +61,7 @@ class GasStationsData {
   //   var jsonResponse = jsonDecode(response.body);
   //   return jsonResponse as Map<String, dynamic>;
   // }
-  Future<GasStation> $findGasStation(String uuid, String phonePosition) async {
+  Future<GasStation> findGasStation(String uuid, String phonePosition) async {
     var url = Uri.http(uri_domain, '$uri_gas_stations/$uuid',
         {"phonePosition": phonePosition});
     print(url);
@@ -65,12 +75,19 @@ class GasStationsData {
   //   return gasStation;
   // }
 
-  Future<GasStation> $getMyGasStation(String phonePosition) async {
+  Future<GasStation> getMyGasStation(String phonePosition) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString("favoriGasStationUuid", "62bbfa1f8ba8ee41cdcca421");
-    String? uuid = prefs.getString("favoriGasStationUuid");
+    String? uuid = prefs.getString("favoriGasStationId");
+    print("UUID");
     print(uuid);
-    return await $findGasStation(
-        uuid ?? "62bbfab18ba8ee41cdcca422", phonePosition);
+    if (uuid != null) {
+      print("FAVORI GASSTATION FROM SHARED PREFERENCE");
+      return await findGasStation(uuid, phonePosition);
+    } else {
+      print("FIRST GASSTATION FROM GETSTATIONS");
+      List<GasStation> gasStations =
+          await getGasStations(phonePosition, "50", "");
+      return gasStations[0];
+    }
   }
 }
